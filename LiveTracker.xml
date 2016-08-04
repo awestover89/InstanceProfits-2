@@ -1,0 +1,72 @@
+<Ui>
+	<Frame name="InstanceProfits_LiveDisplay" parent="UIParent" enableMouse="true" resizable="true" movable="true" userPlaced="true" clampedToScreen="true">
+		<Anchors>
+			<Anchor point="TOP">
+				<Offset>
+					<AbsDimension x="0" y="-20" />
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Size>
+			<AbsDimension x="200" y="90" />
+		</Size>
+		<ResizeBounds>
+			<minResize x="200" y="90"/>
+		</ResizeBounds>
+		<Backdrop 	bgFile="Interface\Tooltips\UI-Tooltip-Background"
+					edgeFile="Interface\Tooltips\UI-Tooltip-Border"
+					tile="true">
+			<EdgeSize>
+				<AbsValue val="16" />
+			</EdgeSize>
+			<TileSize>
+				<AbsValue val="16" />
+			</TileSize>
+			<BackgroundInsets>
+				<AbsInset left="4" right="3" top="4" bottom="3" />
+			</BackgroundInsets>
+			<Color r="0.2" g="0.2" b="0.2" a="0.7" />
+		</Backdrop>
+		<Frames>
+			<Button name="$parent_ButtonClose" inherits="OptionsButtonTemplate" text="X">
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset x="-10" y="-5"/>
+					</Anchor>
+				</Anchors>
+				<Size>
+					<AbsDimension x="16" y="16" />
+				</Size>
+				<Scripts>
+					<OnClick> self:GetParent():Hide(); </OnClick>
+				</Scripts>
+			</Button>
+			<Button name="$parent_ButtonDetails" inherits="OptionsButtonTemplate" text="History">
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset x="-10" y="-20"/>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						InstanceProfits_TableDisplay:Show();
+						IP_DisplaySavedData();
+					</OnClick>
+				</Scripts>
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnMouseDown>
+				if button == "LeftButton" then
+					self:StartMoving();
+				else
+					self:StartSizing();
+				end
+			</OnMouseDown>
+			<OnMouseUp>
+				self:StopMovingOrSizing();
+			</OnMouseUp>
+			<OnUpdate function="IP_UpdateTime" />
+		</Scripts>
+	</Frame>
+</Ui>

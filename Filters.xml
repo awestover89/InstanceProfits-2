@@ -1,0 +1,256 @@
+<Ui>
+	<Frame name="InstanceProfits_FilterOptions" parent="UIParent" enableMouse="true" resizable="true" movable="true" userPlaced="true" clampedToScreen="true">
+		<Anchors>
+			<Anchor point="TOP">
+				<Offset>
+					<AbsDimension x="20" y="-20" />
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Size>
+			<AbsDimension x="300" y="300" />
+		</Size>
+		<ResizeBounds>
+			<minResize x="200" y="90"/>
+		</ResizeBounds>
+		<Backdrop 	bgFile="Interface\DialogFrame\UI-DialogBox-Background-Dark"
+					edgeFile="Interface\Tooltips\UI-Tooltip-Border"
+					tile="true">
+			<EdgeSize>
+				<AbsValue val="16" />
+			</EdgeSize>
+			<TileSize>
+				<AbsValue val="16" />
+			</TileSize>
+			<BackgroundInsets>
+				<AbsInset left="4" right="3" top="4" bottom="3" />
+			</BackgroundInsets>
+			<Color r="0" g="0" b="0" a="1" />
+		</Backdrop>
+		<Frames>
+			<Frame name="$parent_TitleBar" enableMouse="true">
+				<Anchors>
+					<Anchor point="TOPLEFT" />
+				</Anchors>
+				<Size>
+					<AbsDimension x="300" y="30" />
+				</Size>
+				<Backdrop 	bgFile="Interface\Tooltips\UI-Tooltip-Background"
+							tile="true">
+					<TileSize>
+						<AbsValue val="16" />
+					</TileSize>
+					<BackgroundInsets>
+						<AbsInset left="4" right="3" top="4" bottom="3" />
+					</BackgroundInsets>
+					<Color r="0.2" g="0.2" b="1" a="1" />
+				</Backdrop>
+				<Frames>
+					<Button name="$parent_ButtonClose" inherits="OptionsButtonTemplate" text="X">
+						<Anchors>
+							<Anchor point="BOTTOMRIGHT">
+								<Offset x="-10" y="7"/>
+							</Anchor>
+						</Anchors>
+						<Size>
+							<AbsDimension x="16" y="16" />
+						</Size>
+						<Scripts>
+							<OnClick> IP_FilterCancel(); </OnClick>
+						</Scripts>
+					</Button>
+				</Frames>
+				<Layers>
+					<Layer level="ARTWORK">
+						<FontString name="$parent_TitleString"
+									inherits="SystemFont_Med3"
+									text="InstanceProfit Filters"
+									justifyV="TOP"
+									justifyH="RIGHT">
+							<Size>
+								<AbsDimension x="0" y="15" />
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset>
+										<AbsDimension x="20" y="-10" />
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<Color r="1" g="0.2" b="0.2" a="1" />
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnMouseDown>
+						if button == "LeftButton" then
+							self:GetParent():StartMoving();
+						else
+							self:GetParent():StartSizing();
+							self:SetWidth(self:GetParent():GetWidth());
+						end
+					</OnMouseDown>
+					<OnMouseUp>
+						self:GetParent():StopMovingOrSizing();
+						self:SetWidth(self:GetParent():GetWidth());
+					</OnMouseUp>
+					<OnDrag>
+						self:SetWidth(self:GetParent():GetWidth());
+					</OnDrag>
+				</Scripts>
+			</Frame>
+			<Button name="$parent_ButtonSave" inherits="OptionsButtonTemplate" text="Apply Filters">
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset x="-10" y="-35"/>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						IP_FilterApply()
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="$parent_SortDropDown" inherits="UIDropDownMenuTemplate">
+				<Scripts>
+					<OnLoad>
+						UIDropDownMenu_Initialize(self, IP_BuildSortDropdown);
+						self.selectedName = "Name (Asc)";
+						self.selectedValue = "nameA";
+						UIDropDownMenu_SetText(self, self.selectedName);
+					</OnLoad>
+				</Scripts>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="70" y="-60"></AbsDimension>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<CheckButton name="$parentNormalFilter" inherits="OptionsCheckButtonTemplate" checked="true" text="Normal">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="20" y="-90"></AbsDimension>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						IP_Checkbutton_OnLoad(self, 1)
+					</OnLoad>
+					<OnClick>
+						IP_Checkbutton_OnClick(self)
+					</OnClick>
+				</Scripts>
+			</CheckButton>
+			<CheckButton name="$parentHeroicFilter" inherits="OptionsCheckButtonTemplate" checked="true" text="Heroic">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="20" y="-115"></AbsDimension>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						IP_Checkbutton_OnLoad(self, 2)
+					</OnLoad>
+					<OnClick>
+						IP_Checkbutton_OnClick(self)
+					</OnClick>
+				</Scripts>
+			</CheckButton>
+			<CheckButton name="$parentTenManFilter" inherits="OptionsCheckButtonTemplate" checked="true" text="10 Man">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="20" y="-140"></AbsDimension>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						IP_Checkbutton_OnLoad(self, 3)
+					</OnLoad>
+					<OnClick>
+						IP_Checkbutton_OnClick(self)
+					</OnClick>
+				</Scripts>
+			</CheckButton>
+			<CheckButton name="$parentTwentyFiveFilter" inherits="OptionsCheckButtonTemplate" checked="true" text="25 Man">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="20" y="-165"></AbsDimension>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						IP_Checkbutton_OnLoad(self, 4)
+					</OnLoad>
+					<OnClick>
+						IP_Checkbutton_OnClick(self)
+					</OnClick>
+				</Scripts>
+			</CheckButton>
+			<CheckButton name="$parentTenHeroicFilter" inherits="OptionsCheckButtonTemplate" checked="true" text="10 Man (Heroic)">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="20" y="-190"></AbsDimension>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						IP_Checkbutton_OnLoad(self, 5)
+					</OnLoad>
+					<OnClick>
+						IP_Checkbutton_OnClick(self)
+					</OnClick>
+				</Scripts>
+			</CheckButton>
+			<CheckButton name="$parentTwentyFiveHeroicFilter" inherits="OptionsCheckButtonTemplate" checked="true" text="25 Man (Heroic)">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="20" y="-215"></AbsDimension>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						IP_Checkbutton_OnLoad(self, 6)
+					</OnLoad>
+					<OnClick>
+						IP_Checkbutton_OnClick(self)
+					</OnClick>
+				</Scripts>
+			</CheckButton>
+		</Frames>
+		<Layers>
+			<Layer level="ARTWORK">
+				<FontString name="$parent_SortString"
+							inherits="SystemFont_Med3"
+							text="Sort By: "
+							justifyV="TOP"
+							justifyH="RIGHT">
+					<Size>
+						<AbsDimension x="0" y="15" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="20" y="-65" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Color r="1" g=".8" b="0.2" a="1" />
+				</FontString>
+			</Layer>
+		</Layers>
+	</Frame>
+</Ui>

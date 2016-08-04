@@ -1,0 +1,58 @@
+<Ui>
+	<Frame name="InstanceProfits_DetailedDisplay" parent="UIParent" enableMouse="true" resizable="true" movable="true" userPlaced="true" clampedToScreen="true">
+		<Anchors>
+			<Anchor point="TOP">
+				<Offset>
+					<AbsDimension x="0" y="-50" />
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Size>
+			<AbsDimension x="600" y="450" />
+		</Size>
+		<ResizeBounds>
+			<minResize x="200" y="90"/>
+		</ResizeBounds>
+		<Backdrop 	bgFile="Interface\AchievementFrame\UI-Achievement-Parchment-Horizontal"
+					edgeFile="Interface\Tooltips\UI-Tooltip-Border"
+					tile="true">
+			<EdgeSize>
+				<AbsValue val="16" />
+			</EdgeSize>
+			<TileSize>
+				<AbsValue val="16" />
+			</TileSize>
+			<BackgroundInsets>
+				<AbsInset left="4" right="3" top="4" bottom="3" />
+			</BackgroundInsets>
+			<Color r="0.3" b="0.3" g="0.3" a="1"/>
+		</Backdrop>
+		<Frames>
+			<Button name="$parent_ButtonClose" inherits="OptionsButtonTemplate" text="X">
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset x="-10" y="-5"/>
+					</Anchor>
+				</Anchors>
+				<Size>
+					<AbsDimension x="16" y="16" />
+				</Size>
+				<Scripts>
+					<OnClick> self:GetParent():Hide(); </OnClick>
+				</Scripts>
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnMouseDown>
+				if button == "LeftButton" then
+					self:StartMoving();
+				else
+					self:StartSizing();
+				end
+			</OnMouseDown>
+			<OnMouseUp>
+				self:StopMovingOrSizing();
+			</OnMouseUp>
+		</Scripts>
+	</Frame>
+</Ui>

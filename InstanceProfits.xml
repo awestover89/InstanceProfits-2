@@ -1,0 +1,156 @@
+<Ui>
+	<Frame name="InstanceProfits_TableDisplay" parent="UIParent" resizable="true" movable="true" clampedToScreen="true">
+		<Anchors>
+			<Anchor point="CENTER" />
+		</Anchors>
+		<Size>
+			<AbsDimension x="500" y="700" />
+		</Size>
+		<ResizeBounds>
+			<minResize x="200" y="90"/>
+		</ResizeBounds>
+		<Backdrop 	bgFile="Interface\Tooltips\UI-Tooltip-Background"
+					edgeFile="Interface\Tooltips\UI-Tooltip-Border"
+					tile="true">
+			<EdgeSize>
+				<AbsValue val="16" />
+			</EdgeSize>
+			<TileSize>
+				<AbsValue val="16" />
+			</TileSize>
+			<BackgroundInsets>
+				<AbsInset left="4" right="3" top="4" bottom="3" />
+			</BackgroundInsets>
+			<Color r="0.2" g="0.2" b="0.2" a="0.9" />
+		</Backdrop>
+		<Frames>
+			<Frame name="$parent_TitleBar" enableMouse="true" resizable="true">
+				<Anchors>
+					<Anchor point="TOPLEFT" />
+				</Anchors>
+				<Size>
+					<AbsDimension x="500" y="30" />
+				</Size>
+				<ResizeBounds>
+					<minResize x="200" y="30"/>
+					<maxResize x="5000" y="30"/>
+				</ResizeBounds>
+				<Backdrop 	bgFile="Interface\Tooltips\UI-Tooltip-Background"
+							tile="true">
+					<TileSize>
+						<AbsValue val="16" />
+					</TileSize>
+					<BackgroundInsets>
+						<AbsInset left="4" right="3" top="4" bottom="3" />
+					</BackgroundInsets>
+					<Color r="0.2" g="0.2" b="1" a="1" />
+				</Backdrop>
+				<Frames>
+					<Button name="$parent_ButtonClose" inherits="OptionsButtonTemplate" text="X">
+						<Anchors>
+							<Anchor point="BOTTOMRIGHT">
+								<Offset x="-10" y="7"/>
+							</Anchor>
+						</Anchors>
+						<Size>
+							<AbsDimension x="16" y="16" />
+						</Size>
+						<Scripts>
+							<OnClick> self:GetParent():GetParent():Hide(); </OnClick>
+						</Scripts>
+					</Button>
+				</Frames>
+				<Layers>
+					<Layer level="ARTWORK">
+						<FontString name="$parent_TitleString"
+									inherits="SystemFont_Med3"
+									text="InstanceProfit Tracking"
+									justifyV="TOP"
+									justifyH="RIGHT">
+							<Size>
+								<AbsDimension x="0" y="15" />
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset>
+										<AbsDimension x="20" y="-10" />
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<Color r="1" g="0.2" b="0.2" a="1" />
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnMouseDown>
+						if button == "LeftButton" then
+							self:GetParent():StartMoving();
+						else
+							self:GetParent():StartSizing();
+							self:SetWidth(self:GetParent():GetWidth());
+						end
+					</OnMouseDown>
+					<OnMouseUp>
+						self:GetParent():StopMovingOrSizing();
+						self:SetWidth(self:GetParent():GetWidth());
+					</OnMouseUp>
+					<OnDrag>
+						self:SetWidth(self:GetParent():GetWidth());
+					</OnDrag>
+				</Scripts>
+			</Frame>
+
+			<Button name="$parent_ButtonToggleData" inherits="OptionsButtonTemplate" text="Show Account Data">
+				<Anchors>
+					<Anchor point="TOP">
+						<Offset x="15" y="-32"/>
+					</Anchor>
+			    </Anchors>
+				<Size>
+					<AbsDimension x="150" y="21" />
+				</Size>
+			    <Scripts>
+					<OnClick> IP_ToggleDisplayGlobal(); </OnClick>
+			    </Scripts>
+			</Button>
+
+			<Button name="$parent_ButtonClose" inherits="OptionsButtonTemplate" text="Close">
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT">
+						<Offset x="-12" y="16"/>
+					</Anchor>
+			    </Anchors>
+			    <Scripts>
+					<OnClick> self:GetParent():Hide(); </OnClick>
+			    </Scripts>
+			</Button>
+			<Button name="$parent_ButtonFilter" inherits="OptionsButtonTemplate" text="Filter Results">
+				<Anchors>
+					<Anchor point="BOTTOMLEFT">
+						<Offset x="12" y="16"/>
+					</Anchor>
+			    </Anchors>
+				<Size>
+					<AbsDimension x="110" y="21" />
+				</Size>
+			    <Scripts>
+					<OnClick> IP_ShowFilters(); </OnClick>
+			    </Scripts>
+			</Button>
+			<Button name="$parent_ButtonResetChar" inherits="OptionsButtonTemplate" text="Reset Character Data">
+				<Anchors>
+					<Anchor point="BOTTOM">
+						<Offset x="15" y="16"/>
+					</Anchor>
+			    </Anchors>
+				<Size>
+					<AbsDimension x="150" y="21" />
+				</Size>
+			    <Scripts>
+					<OnClick> IP_ClearCharacterData(); </OnClick>
+			    </Scripts>
+			</Button>
+		</Frames>
+
+	</Frame>
+</Ui>
